@@ -249,6 +249,7 @@ The `data` parameter for the ArtyCharty component is an array of chart objects, 
 `highCol` | **string** | The fill color for high values |
 `lowCol` | **string** | The fill color for low values |
 The fill color used for the bar or area chart for a specific point will be the interpolation between the high and low value. E.g. if highCol is set to red and lowCol to green, then the bar with the highest value will have a red fill and the one with the lowest value will have a green fill.
+`padding` | **number** | Padding between bars
 ###### Data object
 | Chart type | Description |
 | ---------- | :---------- |

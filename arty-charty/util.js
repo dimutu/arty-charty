@@ -276,13 +276,14 @@ function computeSplineControlPoints(K)
 function makeBarsChartPath(chart, width, t, maxValue, chartHeight, chartHeightOffset, markerRadius, pointsOnScreen, paddingLeft, isRange) {
     let heightScaler = (chartHeight-markerRadius)/maxValue;
     let xSpacing = width / pointsOnScreen;
-    let barWidth = xSpacing - paddingLeft;
-    let fullWidth = paddingLeft/2 + (paddingLeft+barWidth) * (chart.data.length-1) + barWidth;
+    let padLeft = (chart.padding !== null && chart.padding !== undefined) ? chart.padding : paddingLeft
+    let barWidth = xSpacing - padLeft;
+    let fullWidth = padLeft/2 + (padLeft+barWidth) * (chart.data.length-1) + barWidth;
     let pathStr = []
     let barCords = [];
     let x1, y1, y2;
     chart.data.some((d, idx) => {
-        x1 = paddingLeft/2 + (paddingLeft+barWidth) * idx;
+        x1 = padLeft/2 + (padLeft+barWidth) * idx;
         if (x1 > fullWidth * t && chart.drawChart) {
           return true;
         }
