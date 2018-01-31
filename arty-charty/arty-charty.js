@@ -424,6 +424,7 @@ makeLinearGradientForAreaChart(chart, idx, width) {
 
   render() {
     let width = this.props.width || Dimensions.get('window').width;
+    const padLeft = this.props.padLeft || PAD_LEFT
     let linGrads = [];
      let charts = this.props.data.map((chart, idx) =>  {
        let chartData;
@@ -520,7 +521,7 @@ makeLinearGradientForAreaChart(chart, idx, width) {
           case 'bars-range':
             rangeChart = true;
           case 'bars':
-          chartData = makeBarsChartPath(chart, width, this.state.t, this.maxValue, CHART_HEIGHT, CHART_HEIGHT_OFFSET, MARKER_RADIUS, this.pointsOnScreen, PAD_LEFT, rangeChart);
+          chartData = makeBarsChartPath(chart, width, this.state.t, this.maxValue, CHART_HEIGHT, CHART_HEIGHT_OFFSET, MARKER_RADIUS, this.pointsOnScreen, padLeft, rangeChart);
             chart.barCords = chartData.barCords;
           linGrads.push(this.makeLinearGradientForAreaChart(chart, idx, chartData.width));
             this.maxScroll = Math.max(this.maxScroll, chartData.maxScroll || 0);
@@ -532,7 +533,7 @@ makeLinearGradientForAreaChart(chart, idx, width) {
                   fill={'url(#grad)'} />);
                   break;
           case 'stacked-bars':
-            chartData = makeStackedBarsChartPath(chart, width, this.state.t, this.maxValue, CHART_HEIGHT, CHART_HEIGHT_OFFSET, MARKER_RADIUS, this.pointsOnScreen, PAD_LEFT, this.props.yAxisLeft.width, true);
+            chartData = makeStackedBarsChartPath(chart, width, this.state.t, this.maxValue, CHART_HEIGHT, CHART_HEIGHT_OFFSET, MARKER_RADIUS, this.pointsOnScreen, padLeft, this.props.yAxisLeft.width, true);
             chart.barCords = chartData.barCords;
             chartData.path.forEach((d, idx2) => {
               charts.push(<Path key={idx2 + 20000} 
@@ -543,7 +544,7 @@ makeLinearGradientForAreaChart(chart, idx, width) {
             });
             break;
           case 'bars-3d':
-            chartData = makeBars3DChartPath(chart, width, this.state.t, this.maxValue, CHART_HEIGHT, CHART_HEIGHT_OFFSET, MARKER_RADIUS, this.pointsOnScreen, PAD_LEFT, this.props.yAxisLeft ? this.props.yAxisLeft.width : 0, true);
+            chartData = makeBars3DChartPath(chart, width, this.state.t, this.maxValue, CHART_HEIGHT, CHART_HEIGHT_OFFSET, MARKER_RADIUS, this.pointsOnScreen, padLeft, this.props.yAxisLeft ? this.props.yAxisLeft.width : 0, true);
             chart.barCords = chartData.barCords;
             chartData.path.forEach((d, idx2) => {
               let isActive = idx === this.state.activeMarker.chartIdx && d.pointIdx === this.state.activeMarker.pointIdx;
@@ -569,7 +570,7 @@ makeLinearGradientForAreaChart(chart, idx, width) {
             
             break;
           case 'candlestick':
-          chartData = makeCandlestickChart(chart, width, this.state.t, this.maxValue, CHART_HEIGHT, CHART_HEIGHT_OFFSET, MARKER_RADIUS, this.pointsOnScreen, PAD_LEFT);
+          chartData = makeCandlestickChart(chart, width, this.state.t, this.maxValue, CHART_HEIGHT, CHART_HEIGHT_OFFSET, MARKER_RADIUS, this.pointsOnScreen, padLeft);
           chart.barCords = chartData.barCords;
           chartData.paths.forEach((d, idx2) => {
             charts.push(<Path
